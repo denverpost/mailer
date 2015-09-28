@@ -23,7 +23,7 @@ if ( in_array($user_ip_full, $ip_ignore) == TRUE ):
         exit;
 endif;
 
-if ( strlen($_POST['comments']) <= 6 && $clean['id'] != 'autoadd' ):
+if ( $clean['id'] != 'autoadd' && strlen($_POST['comments']) <= 6 ):
     header("Location: " . $clean['redirect'] . "?source=spamShort");
     exit;
 endif;
@@ -31,10 +31,10 @@ endif;
 
 // COMMENTED OUT FOR NEW ELETTERS FORM if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
 //if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
-if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') ):
+if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') ):
 
     // If the honey pot has been altered...
-    if ( $clean['name_first'] != "Humans: Do Not Use" && $clean['name_first'] != "" ):
+    if ( array_key_exists('name_first', $clean) && ( $clean['name_first'] != "Humans: Do Not Use" && $clean['name_first'] != "" )):
         mail($config['emails']['dev'], "honeypot: " . $clean['name_first'] , $clean['comments']);
         header("Location: " . $clean['redirect'] . "?source=spamHP");
         exit;
@@ -42,7 +42,7 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
 
     // If the comments contain certain phrases, we send them to the redirect page
     foreach ( $blacklist as $value ):
-        if ( strpos(strtolower($clean['comments']), $value) !== FALSE ):
+        if ( array_key_exists('comments', $clean) && strpos(strtolower($clean['comments']), $value) !== FALSE ):
             mail($config['emails']['dev'], "blacklist: " . $_SERVER['HTTP_USER_AGENT'] , "$value " . $clean['comments']);
             header("Location: " . $clean['redirect'] . "?source=spamBL");
             exit;
@@ -50,7 +50,7 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
     endforeach;
 
     // If the comments are empty, we send them to our contact page
-    if ( $clean['comments'] == "" && $clean['id'] != 'autoadd' ):
+    if ( array_key_exists('comments', $clean) && $clean['comments'] == "" && $clean['id'] != 'autoadd' ):
         header("Location: http://www.denverpost.com/contactus?source=spamNO");
         exit;
     else:
@@ -71,7 +71,7 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
                     file_put_contents('addedemails.txt', $emails, FILE_APPEND);
 
                     // cURL a URL with the email address and newsletter alpha-ID to add it
-                    $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_mailer_id'] . '&address=' . substr($bub_email, 0, 50) . '&list=' . $clean['whichone'];
+                    $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_id'] . '&address=' . substr($clean['email'], 0, 50) . '&list=' . $clean['whichone'];
                     $canna_ch = curl_init();
                     curl_setopt($canna_ch, CURLOPT_URL, $canna_url);
                     curl_setopt($canna_ch, CURLOPT_RETURNTRANSFER, 1);
