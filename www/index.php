@@ -8,7 +8,7 @@ require('config.example.php');
 // We whitelist input fields to make sure nothing fishy gets processed.
 $clean = [];
 var_dump($_POST);
-$fields = ['redirect', 'id', 'which', 'email_address'];
+$fields = ['comments', 'redirect', 'id', 'which', 'email_address'];
 foreach ( $fields as $field ):
     if ( array_has_key($field, $_POST) && trim($_POST[$field]) !== '' ):
         $clean[$field] = htmlspecialchars($_POST[$field]);
@@ -29,69 +29,65 @@ if ( strlen($_POST['comments']) <= 6 && $clean['id'] != 'autoadd' ):
 endif;
 
 
-// COMMENTED OUT FOR NEW ELETTERS FORM if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $bub_whichone != '') )
-//if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $bub_whichone != '') )
-if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $bub_whichone != '') ):
-    $tmp = explode("http", $bub_comments);
-    $bub_comments = str_replace('+', ' ', $bub_comments);
+// COMMENTED OUT FOR NEW ELETTERS FORM if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
+//if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
+if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') ):
 
-    //If the honey pot has been altered...
+    // If the honey pot has been altered...
     if ( $clean['name_first'] != "Humans: Do Not Use" && $clean['name_first'] != "" ):
-        mail($config['emails']['dev'], "honeypot: " . $clean['name_first'] , $bub_comments);
+        mail($config['emails']['dev'], "honeypot: " . $clean['name_first'] , $clean['comments']);
         header("Location: " . $clean['redirect'] . "?source=spamHP");
         exit;
     endif;
 
-    //If the comments contain certain phrases, we send them to our contact page
+    // If the comments contain certain phrases, we send them to the redirect page
     foreach ( $blacklist as $value ):
-        if ( strpos(strtolower($bub_comments), $value) !== FALSE ):
-            mail($config['emails']['dev'], "blacklist: " . $_SERVER['HTTP_USER_AGENT'] , "$value " . $bub_comments);
+        if ( strpos(strtolower($clean['comments']), $value) !== FALSE ):
+            mail($config['emails']['dev'], "blacklist: " . $_SERVER['HTTP_USER_AGENT'] , "$value " . $clean['comments']);
             header("Location: " . $clean['redirect'] . "?source=spamBL");
             exit;
         endif;
     endforeach;
 
-    //If the comments are empty, we send them to our contact page
-    if ( $bub_comments == "" && $clean['id'] != 'autoadd' ):
+    // If the comments are empty, we send them to our contact page
+    if ( $clean['comments'] == "" && $clean['id'] != 'autoadd' ):
         header("Location: http://www.denverpost.com/contactus?source=spamNO");
         exit;
     else:
-        $bub_email = 'noreply@denverpostplus.com';
-        if ( isset($bub_email_address) ) $bub_email = rtrim(preg_replace('/\s+/', '', $bub_email_address),'.');
+        $clean['email'] = $config['emails']['from'];
+        if ( isset($clean['email_address']) ) $clean['email'] = rtrim(preg_replace('/\s+/', '', $bub_email_address),'.');
 
-        //Figure out what the subject line and from-address ares
+        //Figure out what the subject line and from-address are
         switch ($clean['id'])
         {
             case 'autoadd':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
-                $bub_message = $bub_comments;
-                if (filter_var($bub_email, FILTER_VALIDATE_EMAIL)) {
+                if (filter_var($bub_email, FILTER_VALIDATE_EMAIL)):
                     // Write the user's email address to a text file
                     //$emails = file_get_contents('addedemails.txt');
                     $emails = substr($bub_email, 0, 50) . ", " . $bub_which . "\n";
                     file_put_contents('addedemails.txt', $emails, FILE_APPEND);
                     // cURL a URL with the email address and newsletter alpha-ID to add it
-                    $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_mailer_id'] . '&address=' . substr($bub_email, 0, 50) . '&list=' . $bub_whichone;
+                    $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_mailer_id'] . '&address=' . substr($bub_email, 0, 50) . '&list=' . $clean['whichone'];
                     $canna_ch = curl_init();
                     curl_setopt($canna_ch, CURLOPT_URL, $canna_url);
                     curl_setopt($canna_ch, CURLOPT_RETURNTRANSFER, 1);
                     $output = curl_exec($canna_ch);
                     curl_close($canna_ch);
-                }
+                endif;
                 break;
             case 'newstip':
             case 'prepscontact':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
                 $bub_from = $bub_email;
-                $bub_message = $bub_comments;
                 break;
             case 'eletters':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
                 $bub_from = $bub_email;
-                $bub_message = htmlspecialchars($bub_name). "\n" . htmlspecialchars($bub_letteremail). "\n" . htmlspecialchars($bub_phone). "\n" . htmlspecialchars($bub_street). "\n" . ($bub_city). "\n" . $bub_comments;
+                $clean['comments'] = htmlspecialchars($bub_name). "\n" . htmlspecialchars($bub_letteremail). "\n" . htmlspecialchars($bub_phone). "\n" . htmlspecialchars($bub_street). "\n" . ($bub_city). "\n" . $clean['comments'];
                 break;
         }
 
@@ -99,18 +95,18 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $bub_
         //Put the information together
         if ( $clean['id'] != 'autoadd' ):
             $clean['subject'] = '[DenverPost] ' . $subject;
-            $bub_headers = "From: noreply@denverpostplus.com \r\n" .
+            $bub_headers = "From: " . $config['emails']['from'] . " \r\n" .
     'Reply-To: ' . $bub_from . ' ' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
-            mail($clean['to'], $clean['subject'], $bub_message, $bub_headers);
+            mail($clean['to'], $clean['subject'], $clean['comments'], $bub_headers);
             $ip = ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
             if ( $clean['id'] == 'newstip' ):
-                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $bub_message, $bub_headers);
-                mail("vmigoya@denverpost.com, dboniface@denverpost.com", $clean['subject'], $bub_message, $bub_headers);
-                mail("dpo@denverpost.com", $clean['subject'], $bub_message, $bub_headers);
+                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $bub_headers);
+                mail("vmigoya@denverpost.com, dboniface@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
+                mail("dpo@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
             elseif ( $clean['id'] == 'eletters' ):
-                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $bub_message, $bub_headers);
-                mail("openforum@denverpost.com", $clean['subject'], $bub_message, $bub_headers);
+                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $bub_headers);
+                mail("openforum@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
             endif;
         endif;
 
