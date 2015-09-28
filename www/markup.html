@@ -26,8 +26,9 @@
 <body>
 <script>
 var form_handler = {
-    submit: function () {
-        $('#newsletter').submit(function(e)
+    submit: function (form_id) {
+console.log(form_id);
+        $(form_id).submit(function(e)
         {
             var post_data = $(this).serializeArray();
             var form_url = $(this).attr('action');
@@ -40,7 +41,7 @@ var form_handler = {
                 {
                     // The data returned from the server will be two values, separated
                     // by a comma: the grade average, and the number of votes. 
-                    $('#newsletter #result p').text('Thanks for signing up.');
+                    $(form_id + ' #result p').text('Thanks for signing up.');
                     console.log(data, text_status, jqXHR);
                 },
                 error: function(jqXHR, text_status, error_thrown) 
@@ -81,7 +82,7 @@ var form_handler = {
             <input type="hidden" name="which" value="sports" />
             <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
 				<input placeholder="Email Address" type="text" name="email_address" maxlength="50" value="">
-				<input type="submit" value="SUBSCRIBE" onClick="form_handler.submit();">
+				<input type="submit" value="SUBSCRIBE" onClick="form_handler.submit('#newsletter');">
 			</form>
 		</div>
 
