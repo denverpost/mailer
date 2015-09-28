@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', '1');
-$blacklist = file('blacklist_strings', FILE_IGNORE_NEW_LINES FILE_SKIP_EMPTY_LINES);
-$ip_ignore = file('blacklist_ips', FILE_IGNORE_NEW_LINES FILE_SKIP_EMPTY_LINES);
+$blacklist = file('blacklist_strings', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$ip_ignore = file('blacklist_ips', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 require('config.example.php');
 
 $user_ip_full = ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
@@ -110,4 +110,5 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $bub_id == 'autoadd' && $bub_which
 
         header("Location: $bub_redirect?source=form");
     endif;
-else header("Location: $bub_redirect?source=SPAM");
+else: header("Location: $bub_redirect?source=SPAM");
+endif;

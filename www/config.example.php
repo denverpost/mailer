@@ -1,8 +1,13 @@
 <?php
 // Set up the implementation-specific information for the email handler.
 
+$site_id = '';
+if ( getenv("SITE_ID") !== false ):
+    $site_id = trim($_ENV['SITE_ID']);
+endif;
+
 $config = array(
-    'site_mailer_id' => $_ENV['MAILER_ID'],
+    'site_id' => $site_id,
     'emails' => array(
         'dev' => 'jmurphy@denverpost.com',
         'from' => 'noreply@denverpostplus.com'
@@ -12,15 +17,15 @@ $config = array(
         'autoadd' => array(
             'subject' => '',
             'to' => ''
-        )
+        ),
         'newstip' => array(
             'subject' => 'News Tip from denverpost.com',
             'to' => 'newsroom@denverpost.com'
-        )
+        ),
         'eletters' => array(
             'subject' => 'Letter to the editor',
             'to' => 'jmurphy@denverpost.com, khamm@denverpost.com, openforum@denverpost.com'
-        )
+        ),
         'prepscontact' => array(
             'subject' => '[Preps] Contact Form submission',
             'to' => 'postpreps@denverpost.com,jnguyen@denverpost.com'

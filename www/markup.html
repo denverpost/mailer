@@ -39,8 +39,14 @@
 			<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 		</div>
 		<div class="right">
-			<form>
-				<input type="text" value="Email address">
+			<form action="index.php" method="post" name="sports">
+            <input type="hidden" name="keebler" value="goof111" />
+            <input type="hidden" name="goof111" value="TRUE" />
+            <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/sportsthanks.html" />
+            <input type="hidden" name="id" value="autoadd" />
+            <input type="hidden" name="which" value="sports" />
+            <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+				<input placeholder="Email Address" type="text" name="email_address" maxlength="50" value="">
 				<input type="submit" value="SUBSCRIBE">
 			</form>
 		</div>
