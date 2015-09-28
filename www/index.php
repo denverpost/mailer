@@ -7,10 +7,10 @@ require('config.example.php');
 // Clean the input.
 // We whitelist input fields to make sure nothing fishy gets processed.
 $clean = [];
-var_dump($_POST);
+//var_dump($_POST);
 $fields = ['comments', 'redirect', 'id', 'which', 'email_address'];
 foreach ( $fields as $field ):
-    if ( array_has_key($field, $_POST) && trim($_POST[$field]) !== '' ):
+    if ( array_key_exists($field, $_POST) && trim($_POST[$field]) !== '' ):
         $clean[$field] = htmlspecialchars($_POST[$field]);
     endif;
 endforeach;
@@ -94,7 +94,7 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
         }
 
 
-        //Put the information together
+        // Send the email, if that's what we're doing.
         if ( $clean['id'] != 'autoadd' ):
             $clean['subject'] = '[DenverPost] ' . $subject;
             $clean['headers'] = "From: " . $config['emails']['from'] . " \r\n" .

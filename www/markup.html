@@ -20,9 +20,43 @@
 		#emailSkinny .left {width:45%; float:left;}
 		#emailSKinny .right {width:50%;}
 	</style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Andada|Montserrat:400,700|Open+Sans:400,800,700,400italic' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<script>
+var form_handler = {
+    init: function () {
+    console.log('asda');
+        $('#newsletter').submit(function(e)
+        {
+    console.log('SUBMIT');
+            var post_data = $(this).serializeArray();
+            var form_url = $(this).attr('action');
+            $.ajax(
+            {
+                url: form_url,
+                type: 'POST',
+                data: post_data,
+                success: function(data, text_status, jqXHR) 
+                {
+                    // The data returned from the server will be two values, separated
+                    // by a comma: the grade average, and the number of votes. 
+                    $('#" . $slug . " #result p').text('Thanks for signing up.');
+                    console.log(data, text_status, jqXHR);
+                },
+                error: function(jqXHR, text_status, error_thrown) 
+                {
+                    console.log(data, text_status, error_thrown);
+                }
+            });
+            // Make sure the form doesn't fire
+            e.preventDefault(); 
+        });
+    }
+};
+$(document).ready(form_handler.init());
+</script>
 	<div id="emailThick">
 		<h2>Get news updates right in your inbox.</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -39,7 +73,7 @@
 			<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 		</div>
 		<div class="right">
-			<form action="index.php" method="post" name="sports">
+			<form action="index.php" method="post" name="sports" id="newsletter">
             <input type="hidden" name="keebler" value="goof111" />
             <input type="hidden" name="goof111" value="TRUE" />
             <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/sportsthanks.html" />
