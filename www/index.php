@@ -55,7 +55,7 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
         exit;
     else:
         $clean['email'] = $config['emails']['from'];
-        if ( isset($clean['email_address']) ) $clean['email'] = rtrim(preg_replace('/\s+/', '', $bub_email_address),'.');
+        if ( isset($clean['email_address']) ) $clean['email'] = rtrim(preg_replace('/\s+/', '', $clean['email_address']),'.');
 
         //Figure out what the subject line and from-address are
         switch ($clean['id'])
@@ -63,11 +63,13 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
             case 'autoadd':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
-                if (filter_var($bub_email, FILTER_VALIDATE_EMAIL)):
+
+                if (filter_var($clean['email'], FILTER_VALIDATE_EMAIL)):
+
                     // Write the user's email address to a text file
-                    //$emails = file_get_contents('addedemails.txt');
-                    $emails = substr($bub_email, 0, 50) . ", " . $bub_which . "\n";
+                    $emails = substr($clean['email'], 0, 50) . ", " . $clean['which'] . "\n";
                     file_put_contents('addedemails.txt', $emails, FILE_APPEND);
+
                     // cURL a URL with the email address and newsletter alpha-ID to add it
                     $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_mailer_id'] . '&address=' . substr($bub_email, 0, 50) . '&list=' . $clean['whichone'];
                     $canna_ch = curl_init();
@@ -81,12 +83,12 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
             case 'prepscontact':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
-                $bub_from = $bub_email;
+                $clean['from'] = $clean['email'];
                 break;
             case 'eletters':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
-                $bub_from = $bub_email;
+                $clean['from'] = $clean['email'];
                 $clean['comments'] = htmlspecialchars($bub_name). "\n" . htmlspecialchars($bub_letteremail). "\n" . htmlspecialchars($bub_phone). "\n" . htmlspecialchars($bub_street). "\n" . ($bub_city). "\n" . $clean['comments'];
                 break;
         }
@@ -95,18 +97,18 @@ if ( $_POST && $bub_keebler == 'goof111' || ( $clean['id'] == 'autoadd' && $clea
         //Put the information together
         if ( $clean['id'] != 'autoadd' ):
             $clean['subject'] = '[DenverPost] ' . $subject;
-            $bub_headers = "From: " . $config['emails']['from'] . " \r\n" .
-    'Reply-To: ' . $bub_from . ' ' . "\r\n" .
+            $clean['headers'] = "From: " . $config['emails']['from'] . " \r\n" .
+    'Reply-To: ' . $clean['from'] . ' ' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
-            mail($clean['to'], $clean['subject'], $clean['comments'], $bub_headers);
+            mail($clean['to'], $clean['subject'], $clean['comments'], $clean['headers']);
             $ip = ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
             if ( $clean['id'] == 'newstip' ):
-                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $bub_headers);
-                mail("vmigoya@denverpost.com, dboniface@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
-                mail("dpo@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
+                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $clean['headers']);
+                mail("vmigoya@denverpost.com, dboniface@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
+                mail("dpo@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
             elseif ( $clean['id'] == 'eletters' ):
-                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $bub_headers);
-                mail("openforum@denverpost.com", $clean['subject'], $clean['comments'], $bub_headers);
+                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $clean['headers']);
+                mail("openforum@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
             endif;
         endif;
 
