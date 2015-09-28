@@ -4,16 +4,23 @@ $blacklist = file('blacklist_strings', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_L
 $ip_ignore = file('blacklist_ips', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 require('config.example.php');
 
+// Clean the input.
+// We whitelist input fields to make sure nothing fishy gets processed.
+$clean = [];
+var_dump($_POST);
+$fields = ['redirect', 'id', 'which', 'email_address'];
+foreach ( $fields as $field ):
+    if ( array_has_key($field, $_POST) && trim($_POST[$field]) !== '' ):
+        $clean[$field] = htmlspecialchars($_POST[$field]);
+    endif;
+endforeach;
+
 $user_ip_full = ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 if ( in_array($user_ip_full, $ip_ignore) == TRUE ):
         header("Location: $bub_redirect?source=IPblacklist");
         exit;
 endif;
 
-// Clean the input
-extract($_POST, EXTR_PREFIX_ALL, "clean");
-var_dump($_POST);
-$fields = [""];
 
 $bub_whichone = '';
 if (array_key_exists($bub_which,$list_lookup)) $bub_whichone = $list_lookup[$bub_which];
