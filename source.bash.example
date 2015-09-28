@@ -1,1 +1,2 @@
 # Define environment vars here
+export MAILER_ID=''
