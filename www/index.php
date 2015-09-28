@@ -10,9 +10,10 @@ if ( in_array($user_ip_full, $ip_ignore) == TRUE ):
         exit;
 endif;
 
-// This pulls all the submitted variables and adds a prefix to them.
-// Unless the spammers guess the prefix, it's unlikely they'll be able to hack this.
-extract($_POST, EXTR_PREFIX_ALL, "bub");
+// Clean the input
+extract($_POST, EXTR_PREFIX_ALL, "clean");
+var_dump($_POST);
+$fields = [""];
 
 $bub_whichone = '';
 if (array_key_exists($bub_which,$list_lookup)) $bub_whichone = $list_lookup[$bub_which];
