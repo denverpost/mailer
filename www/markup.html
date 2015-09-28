@@ -27,7 +27,6 @@
 <script>
 var form_handler = {
     submit: function (form_id) {
-console.log(form_id);
         $(form_id).submit(function(e)
         {
             var post_data = $(this).serializeArray();
@@ -41,7 +40,8 @@ console.log(form_id);
                 {
                     // The data returned from the server will be two values, separated
                     // by a comma: the grade average, and the number of votes. 
-                    $(form_id + ' #result p').text('Thanks for signing up.');
+                    $(form_id + ' p#results').text('Thanks for signing up.');
+                    $(form_id + ' input').remove();
                     console.log(data, text_status, jqXHR);
                 },
                 error: function(jqXHR, text_status, error_thrown) 
@@ -75,12 +75,13 @@ console.log(form_id);
 		</div>
 		<div class="right">
 			<form action="index.php" method="post" name="sports" id="newsletter">
-            <input type="hidden" name="keebler" value="goof111" />
-            <input type="hidden" name="goof111" value="TRUE" />
-            <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/sportsthanks.html" />
-            <input type="hidden" name="id" value="autoadd" />
-            <input type="hidden" name="which" value="sports" />
-            <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+                <p id="results"></p>
+                <input type="hidden" name="keebler" value="goof111" />
+                <input type="hidden" name="goof111" value="TRUE" />
+                <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/sportsthanks.html" />
+                <input type="hidden" name="id" value="autoadd" />
+                <input type="hidden" name="which" value="sports" />
+                <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
 				<input placeholder="Email Address" type="text" name="email_address" maxlength="50" value="">
 				<input type="submit" value="SUBSCRIBE" onClick="form_handler.submit('#newsletter');">
 			</form>
