@@ -26,11 +26,9 @@
 <body>
 <script>
 var form_handler = {
-    init: function () {
-    console.log('asda');
+    submit: function () {
         $('#newsletter').submit(function(e)
         {
-    console.log('SUBMIT');
             var post_data = $(this).serializeArray();
             var form_url = $(this).attr('action');
             $.ajax(
@@ -42,7 +40,7 @@ var form_handler = {
                 {
                     // The data returned from the server will be two values, separated
                     // by a comma: the grade average, and the number of votes. 
-                    $('#" . $slug . " #result p').text('Thanks for signing up.');
+                    $('#newsletter #result p').text('Thanks for signing up.');
                     console.log(data, text_status, jqXHR);
                 },
                 error: function(jqXHR, text_status, error_thrown) 
@@ -52,10 +50,12 @@ var form_handler = {
             });
             // Make sure the form doesn't fire
             e.preventDefault(); 
+            $(this).attr('action', '');
+            //$.cookie('$slug', 1, { path: '/', expires: 999999 });
         });
-    }
+    },
+    init: function() { }
 };
-$(document).ready(form_handler.init());
 </script>
 	<div id="emailThick">
 		<h2>Get news updates right in your inbox.</h2>
@@ -81,7 +81,7 @@ $(document).ready(form_handler.init());
             <input type="hidden" name="which" value="sports" />
             <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
 				<input placeholder="Email Address" type="text" name="email_address" maxlength="50" value="">
-				<input type="submit" value="SUBSCRIBE">
+				<input type="submit" value="SUBSCRIBE" onClick="form_handler.submit();">
 			</form>
 		</div>
 
