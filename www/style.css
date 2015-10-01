@@ -30,7 +30,6 @@ font-size: 1.0em;
 width:75%;
 }
 #emailThick input[type="submit"] {
-padding: 12px;
 font-family: 'Montserrat', sans-serif;
 color:#ffffff;
 background-color:#078A22;
@@ -38,6 +37,9 @@ width:20%;
 font-size: 1.0em;
 border-style: none;
 font-weight:700;
+float:right;
+padding:11px;
+border-radius:2px;
 }
 #emailThick form {
 display:inline;
@@ -93,6 +95,6 @@ padding-left:12px;
 width:45%;
 float:left;
 }
-#emailSKinny .right {
+#emailSkinny .right {
 width:50%;
 }
