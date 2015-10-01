@@ -111,7 +111,11 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
             endif;
         endif;
 
-        header("Location: " . $clean['redirect'] . "?source=form");
+        if ( $clean['is_ajax'] === '1' ):
+            echo '1';
+        else:
+            header("Location: " . $clean['redirect']);
+        endif;
     endif;
 else: header("Location: " . $clean['redirect'] . "?source=SPAM");
 endif;
