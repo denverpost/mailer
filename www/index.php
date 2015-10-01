@@ -13,7 +13,8 @@ foreach ( $fields as $field ):
         $clean[$field] = htmlspecialchars($_POST[$field]);
     endif;
 endforeach;
-if (array_key_exists($clean['which'],$list_lookup)) $clean['whichone'] = $list_lookup[$clean['which']];
+if ( array_key_exists($clean['which'], $list_lookup) ) $clean['whichone'] = $list_lookup[$clean['which']];
+if ( array_key_exists('is_ajax', $clean) ) $ajax_return = '1';
 
 
 $user_ip_full = ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
@@ -76,6 +77,8 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
                     curl_setopt($canna_ch, CURLOPT_RETURNTRANSFER, 1);
                     $output = curl_exec($canna_ch);
                     curl_close($canna_ch);
+                else:
+                    $ajax_return = '0';
                 endif;
                 break;
             case 'newstip':
@@ -112,7 +115,7 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
         endif;
 
         if ( $clean['is_ajax'] === '1' ):
-            echo '1';
+            echo $ajax_return;
         else:
             header("Location: " . $clean['redirect']);
         endif;
