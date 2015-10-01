@@ -2,7 +2,16 @@
 <html>
 <head>
 	<title>Newsletter bug tests</title>
-	<style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+<!--
+<script src="mailer.js"></script>
+-->
+
+<link href='https://fonts.googleapis.com/css?family=Andada|Montserrat:400,700|Open+Sans:400,800,700,400italic' rel='stylesheet' type='text/css'>
+<script src="http://extras.denverpost.com/app/mailer-rules/mailer.js"></script>
+	<style type="text/css">
 		/*THICK*/
 		#emailThick {width:100%; max-width:654px; padding:1%; background-color:#f7f7f7; }
 		#emailThick h2 {font-family:'Andada', Georgia, serif; font-size: 1.4em; color:#212121; padding:0 0 8px 0; margin:0;}
@@ -20,23 +29,25 @@
 		#emailSkinny .left {width:45%; float:left;}
 		#emailSKinny .right {width:50%;}
 	</style>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<link href='https://fonts.googleapis.com/css?family=Andada|Montserrat:400,700|Open+Sans:400,800,700,400italic' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<script src="mailer.js"></script>
 	<div id="emailThick">
-		<h2>Get news updates right in your inbox.</h2>
+		<h2>PROD: Get news updates right in your inbox.</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-		<form>
-			<input type="text" value="Email address">
-			<input type="submit" value="SUBSCRIBE">
-		</form>
+			<form action="http://denverpostplus.com/app/mailer-rules/index.php" method="post" name="sports" id="newsletter-sports">
+                <p id="results"></p>
+                <input type="hidden" name="keebler" value="goof111" />
+                <input type="hidden" name="goof111" value="TRUE" />
+                <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/sportsthanks.html" />
+                <input type="hidden" name="id" value="autoadd" />
+                <input type="hidden" name="which" value="sports" />
+                <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+				<input placeholder="Email Address" type="text" name="email_address" maxlength="50" value="">
+				<input type="submit" value="SUBSCRIBE" onClick="form_handler.submit('#newsletter-sports');">
+			</form>
 	</div>
 	&nbsp;
 	&nbsp;
 	<div id="emailSkinny">
-		<h2>Get news updates right in your inbox.</h2>
+		<h2>LOCAL: Get news updates right in your inbox.</h2>
 		<div class="left">
 			<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 		</div>
