@@ -1,5 +1,15 @@
 /*
 ===================
+GLOBAL
+===================
+*/
+#emailThick input[type="text"]:focus,
+#emailSkinny input[type="text"]:focus {
+color:#33c;
+}
+
+/*
+===================
 THICK
 ===================
 */
@@ -19,7 +29,7 @@ margin:0;
 }
 #emailThick p {
 font-family: 'Open Sans', sans-serif;
-font-size: 0.8em;
+font-size: 1em;
 color:#212121;
 padding:0 0 8px 0;
 margin:0;
@@ -29,7 +39,7 @@ padding: 10px;
 font-family:'Open Sans', sans-serif;
 color:#cccccc;
 border: solid 1px #dcdcdc;
- transition: box-shadow 0.3s, border 0.3s;
+transition: box-shadow 0.3s, border 0.3s;
 font-size: 1.0em;
 width:75%;
 }
@@ -70,7 +80,7 @@ margin:0;
 }
 #emailSkinny p {
 font-family: 'Open Sans', sans-serif;
-font-size: 0.8em;
+font-size: 1em;
 color:#212121;
 padding:0 0 8px 0;
 width:100%;
