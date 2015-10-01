@@ -7,7 +7,7 @@ require('config.example.php');
 // Clean the input.
 // We whitelist input fields to make sure nothing fishy gets processed.
 $clean = array();
-$fields = ['comments', 'redirect', 'id', 'which', 'email_address', 'is_ajax'];
+$fields = array('comments', 'redirect', 'id', 'which', 'email_address', 'is_ajax');
 foreach ( $fields as $field ):
     if ( array_key_exists($field, $_POST) && trim($_POST[$field]) !== '' ):
         $clean[$field] = htmlspecialchars($_POST[$field]);
