@@ -6,7 +6,7 @@ require('config.example.php');
 
 // Clean the input.
 // We whitelist input fields to make sure nothing fishy gets processed.
-$clean = [];
+$clean = array();
 //var_dump($_POST);
 $fields = ['comments', 'redirect', 'id', 'which', 'email_address'];
 foreach ( $fields as $field ):
