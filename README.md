@@ -1,5 +1,9 @@
-# mailer
-Our emailer scripts, god bless 'em all.
+# Mailer
+Our emailer scripts, bless 'em all.
+
+## Usage
+
+# License
 The MIT License (MIT)
 
 Copyright (c) 2015 denverpost
