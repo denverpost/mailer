@@ -1,9 +1,9 @@
 <?php
-    //header("Access-Control-Allow-Headers: X-Requested-With");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Methods: GET, POST");
-    header("Vary: Accept-Encoding");
-ini_set('display_errors', '1');
+header("Access-Control-Allow-Headers: X-Requested-With");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST");
+header("Vary: Accept-Encoding");
+
 $blacklist = file('blacklist_strings', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 $ip_ignore = file('blacklist_ips', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 require('config.example.php');
