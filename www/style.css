@@ -1,4 +1,8 @@
-/*THICK*/
+/*
+===================
+THICK
+===================
+*/
 #emailThick {
 width:100%;
 max-width:654px;
@@ -44,10 +48,15 @@ border-radius:2px;
 #emailThick form {
 display:inline;
 }
-/*SKINNY*/
+
+/*
+===================
+SKINNY
+===================
+*/
 #emailSkinny {
 width:100%;
-max-width:654px;
+max-width:354px;
 padding:1%;
 background-color:#f7f7f7;
 
@@ -64,7 +73,7 @@ font-family: 'Open Sans', sans-serif;
 font-size: 0.8em;
 color:#212121;
 padding:0 0 8px 0;
-width:50%;
+width:100%;
 display:inline;
 margin:0;
 }
@@ -83,7 +92,7 @@ font-family: 'Montserrat', sans-serif;
 color:#ffffff;
 background-color:#078A22;
 font-size: 0.8em;
-width:15%;
+width:50%;
 border-style: none;
 font-weight:700;
 }
@@ -92,9 +101,7 @@ display:inline;
 padding-left:12px;
 }
 #emailSkinny .left {
-width:45%;
 float:left;
 }
 #emailSkinny .right {
-width:50%;
 }
