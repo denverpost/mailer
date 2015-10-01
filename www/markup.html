@@ -39,11 +39,21 @@ var form_handler = {
                 data: post_data,
                 success: function(data, text_status, jqXHR) 
                 {
-                    // The data returned from the server will be two values, separated
-                    // by a comma: the grade average, and the number of votes. 
-                    $(form_id + ' p#results').text('Thanks for signing up.');
-                    $(form_id + ' input').remove();
-                    console.log(data, text_status, jqXHR);
+                    // The data returned from the server will be a 1 if it's
+                    // a valid email or a 0 if it's not.
+                    if ( data === "1" )
+                    {
+                        $(form_id + ' p#results').text('Thanks for signing up.');
+
+                        // Make sure the form can't submit again.
+                        $(form_id + ' input').remove();
+                        $(form_id).attr('action', '');
+                    }
+                    else if ( data === "0" )
+                    {
+                        $(form_id + ' p#results').text('Please enter a valid email address.');
+                        return false;
+                    }
                 },
                 error: function(jqXHR, text_status, error_thrown) 
                 {
@@ -52,7 +62,6 @@ var form_handler = {
             });
             // Make sure the form doesn't fire
             e.preventDefault(); 
-            $(this).attr('action', '');
             //$.cookie('$slug', 1, { path: '/', expires: 999999 });
         });
     },
