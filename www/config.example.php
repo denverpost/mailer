@@ -57,4 +57,6 @@ $list_lookup = array(
     'photoday' => 'wwlwvld',
     'transgender' => 'xdgphpj',
     'sports' => 'mdntydw'
+    'news' => 'bjfjfgz',
+    'life' => 'zlspsdw'
     );
