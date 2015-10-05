@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Newsletter bug tests</title>
+	<title>Newsletter</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
@@ -13,9 +13,10 @@
 <link href='http://extras.denverpost.com/app/mailer-rules/style.css' rel='stylesheet' type='text/css'>
 <script src="http://extras.denverpost.com/app/mailer-rules/mailer.js"></script>
 -->
+    <h2>Form submits to production URL:</h2>
 	<div id="emailThick">
-		<h2>PROD: Get news updates right in your inbox.</h2>
-		<p>Skip the hassle of waiting for our pages to load and get our headlines in your inbox.</p>
+		<h2>Get news updates right in your inbox.</h2>
+		<p></p>
 			<form action="http://denverpostplus.com/app/mailer-rules/index.php" method="post" name="sports" id="newsletter-sports">
                 <p id="results"></p>
                 <input type="hidden" name="keebler" value="goof111" />
@@ -30,10 +31,12 @@
 	</div>
 	&nbsp;
 	&nbsp;
+<hr noshade>
+    <h2>Form submits locally, good for testing:</h2>
     <div id="emailSkinny">
-		<h2>LOCAL: Get news updates right in your inbox.</h2>
+		<h2>Get news updates right in your inbox.</h2>
 		<div class="left">
-			<p>Skip the hassle of waiting for our pages to load and get our headlines in your inbox.</p>
+			<p></p>
 		</div>
 		<div class="right">
 			<form action="index.php" method="post" name="sports" id="newsletter">

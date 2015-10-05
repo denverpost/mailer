@@ -76,6 +76,8 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
 
                     // cURL a URL with the email address and newsletter alpha-ID to add it
                     $canna_url = 'http://mail.denverpost.com/Subscribe.do?action=saveSignup&siteID=' . $config['site_id'] . '&address=' . substr($clean['email'], 0, 50) . '&list=' . $clean['whichone'];
+                    file_put_contents('submit_urls', $canna_url, FILE_APPEND);
+
                     $canna_ch = curl_init();
                     curl_setopt($canna_ch, CURLOPT_URL, $canna_url);
                     curl_setopt($canna_ch, CURLOPT_RETURNTRANSFER, 1);
