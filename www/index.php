@@ -11,7 +11,8 @@ require('config.php');
 // Clean the input.
 // We whitelist input fields to make sure nothing fishy gets processed.
 $clean = array();
-$fields = array('comments', 'redirect', 'id', 'which', 'email_address', 'is_ajax');
+$fields = array('comments', 'redirect', 'id', 'which', 'email_address', 'is_ajax', 'friend_email_address', 'subject');
+$clean['referer'] = $_SERVER['HTTP_REFERER'];
 foreach ( $fields as $field ):
     if ( array_key_exists($field, $_POST) && trim($_POST[$field]) !== '' ):
         $clean[$field] = htmlspecialchars($_POST[$field]);
@@ -33,9 +34,7 @@ if ( $clean['id'] != 'autoadd' && strlen($_POST['comments']) <= 6 ):
 endif;
 
 
-// COMMENTED OUT FOR NEW ELETTERS FORM if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
-//if ( $_POST && intval($bub_submit_x) > 1 || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') )
-if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') ):
+if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clean['whichone'] != '') || $clean['id'] == 'friendsend' ):
 
     // If the honey pot has been altered...
     if ( array_key_exists('name_first', $clean) && ( $clean['name_first'] != "Humans: Do Not Use" && $clean['name_first'] != "" )):
@@ -98,6 +97,12 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
                 $clean['from'] = $clean['email'];
                 $clean['comments'] = htmlspecialchars($bub_name). "\n" . htmlspecialchars($bub_letteremail). "\n" . htmlspecialchars($bub_phone). "\n" . htmlspecialchars($bub_street). "\n" . ($bub_city). "\n" . $clean['comments'];
+                break;
+            case 'friendsend':
+                $subject = $clean['subject'];
+                $clean['to'] = $clean['friend_email_address'];
+                $clean['from'] = $clean['email_address'];
+                $clean['comments'] = "A friend thought you'd be interested in this page: " . $clean['referer'];
                 break;
         }
 
