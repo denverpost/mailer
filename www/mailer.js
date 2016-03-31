@@ -16,7 +16,12 @@ var form_handler = {
                     // a valid email or a 0 if it's not.
                     if ( data === "1" )
                     {
-                        $(form_id + ' p#results').text('Thanks for signing up.');
+                        var reply = 'Thanks for signing up';
+                        if ( $(this)[0].data.indexOf('friendsend') > 0 )
+                        {
+                            reply = 'Page sent!';
+                        }
+                        $(form_id + ' p#results').text(reply);
 
                         // Make sure the form can't submit again.
                         $(form_id + ' input').remove();
