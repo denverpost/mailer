@@ -28,7 +28,7 @@ if ( in_array($user_ip_full, $ip_ignore) == TRUE ):
         exit;
 endif;
 
-if ( $clean['id'] != 'autoadd' && strlen($_POST['comments']) <= 6 ):
+if ( $clean['id'] != 'autoadd' && $clean['id'] != 'friendsend' && strlen($_POST['comments']) <= 6 ):
     header("Location: " . $clean['redirect'] . "?source=spamShort");
     exit;
 endif;
