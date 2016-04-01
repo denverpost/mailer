@@ -63,6 +63,14 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
         //Figure out what the subject line and from-address are
         switch ($clean['id'])
         {
+            case 'multiadd':
+                // multiadd are subscriptions to the multi-rss-email service.
+                // https://github.com/denverpost/multi-rss-mailer
+                // We write the email address to a file.
+                // The name of the file is a slugified version of the RSS feed URL.
+                // The RSS feed URL is passed via the form, and must be
+                // on a whitelisted domain.
+                break;
             case 'autoadd':
                 $subject = $config['handlers'][$clean['id']]['subject'];
                 $clean['to'] = $config['handlers'][$clean['id']]['to'];
