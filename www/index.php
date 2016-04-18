@@ -58,7 +58,7 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
         exit;
     else:
         $clean['email'] = $config['emails']['from'];
-        if ( isset($clean['email_address']) ) $clean['email'] = rtrim(preg_replace('/\s+/', '', $clean['email_address']),'.');
+        if ( array_key_exists('email_address', $clean) ) $clean['email'] = rtrim(preg_replace('/\s+/', '', $clean['email_address']),'.');
 
         //Figure out what the subject line and from-address are
         switch ($clean['id'])
@@ -117,7 +117,7 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
             $ip = ( isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
             if ( $clean['id'] == 'newstip' ):
                 mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $clean['headers']);
-                mail("vmigoya@denverpost.com, dboniface@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
+                mail("kgeers@denverpost.com,fswidler@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
                 mail("dpo@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
             elseif ( $clean['id'] == 'eletters' ):
                 mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $clean['headers']);
