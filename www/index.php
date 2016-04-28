@@ -38,7 +38,7 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
 
     // If the honey pot has been altered...
     if ( array_key_exists('name_first', $clean) && ( $clean['name_first'] != "Humans: Do Not Use" && $clean['name_first'] != "" )):
-        mail($config['emails']['dev'], "honeypot: " . $clean['name_first'] , $clean['comments']);
+        //mail($config['emails']['dev'], "honeypot: " . $clean['name_first'] , $clean['comments']);
         header("Location: " . $clean['redirect'] . "?source=spamHP");
         exit;
     endif;
@@ -46,7 +46,7 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
     // If the comments contain certain phrases, we send them to the redirect page
     foreach ( $blacklist as $value ):
         if ( array_key_exists('comments', $clean) && strpos(strtolower($clean['comments']), $value) !== FALSE ):
-            mail($config['emails']['dev'], "blacklist: " . $_SERVER['HTTP_USER_AGENT'] , "$value " . $clean['comments']);
+            //mail($config['emails']['dev'], "blacklist: " . $_SERVER['HTTP_USER_AGENT'] , "$value " . $clean['comments']);
             header("Location: " . $clean['redirect'] . "?source=spamBL");
             exit;
         endif;
@@ -120,7 +120,6 @@ if ( array_key_exists('comment', $_POST) || ( $clean['id'] == 'autoadd' && $clea
                 mail("kgeers@denverpost.com,fswidler@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
                 mail("dpo@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
             elseif ( $clean['id'] == 'eletters' ):
-                mail($config['emails']['dev'], $clean['subject']  . ' ' . $ip, $clean['comments'], $clean['headers']);
                 mail("openforum@denverpost.com", $clean['subject'], $clean['comments'], $clean['headers']);
             endif;
         endif;
