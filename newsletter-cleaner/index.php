@@ -28,6 +28,8 @@ if ( isset($_POST['content']) ):
 
     // Strip the custom markup on the paragraphs
     $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:5%;margin-bottom:5%;margin-right:1%;margin-left:1%;", '', $content);
+    // Strip the heavy underline on the links
+    $content = str_replace("color:#0D4F8B;text-decoration:none;border-style:dotted;border-top-style:none;border-right-style:none;border-left-style:none;border-width:2px;", '', $content);
 
     // Strip the head and opening body element
     $content = preg_replace('/.*BODY --&gt;/s', '', $content);
