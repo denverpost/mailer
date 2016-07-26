@@ -20,14 +20,16 @@ if ( isset($_POST['content']) ):
 ?>
             <p>Copy the markup below and paste it into an article. You'll probably want to add a featured image before publishing.</p>
             <textarea name="content" id="content" cols="100" rows="30">
+[caption id="attachment_2066876" align="aligncenter" width="1200"]<img width="1200" data-sizes="auto" data-src="https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=620&#038;crop=0%2C0px%2C100%2C9999px" data-srcset="https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=620&#038;crop=0%2C0px%2C100%2C9999px 620w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=780&#038;crop=0%2C0px%2C100%2C9999px 780w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=810&#038;crop=0%2C0px%2C100%2C9999px 810w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=630&#038;crop=0%2C0px%2C100%2C9999px 630w" class="lazyload size-article_inline"  alt="Mile High Roundup" >[/caption]
 <?php
-    $content = htmlspecialchars($_POST['content']); 
+    // Strip the custom markup on the paragraphs
+    $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:0.5em;margin-bottom:0;margin-right:0;margin-left:0;", '', $_POST['content']);
+
+    $content = htmlspecialchars($content); 
 
     // Fix the widths on the hr's
     $content = str_replace('width:300px;', 'width:100%;', $content);
 
-    // Strip the custom markup on the paragraphs
-    $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:5%;margin-bottom:5%;margin-right:1%;margin-left:1%;", '', $content);
     // Strip the heavy underline on the links
     $content = str_replace("color:#0D4F8B;text-decoration:none;border-style:dotted;border-top-style:none;border-right-style:none;border-left-style:none;border-width:2px;", '', $content);
 
