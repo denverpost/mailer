@@ -40,6 +40,8 @@ if ( isset($_POST['content']) ):
     
     echo $content;
 ?>
+[related_articles location="left" show_article_date="false" article_type="automatic"]
+
 <aside>
 [dfm_iframe src="http://extras.denverpost.com/app/mailer-rules/roundup-widget.html" width="100%" height="500px"]
 </aside>
