@@ -24,6 +24,7 @@ if ( isset($_POST['content']) ):
 <?php
     // Strip the custom markup on the paragraphs
     $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:0.5em;margin-bottom:0;margin-right:0;margin-left:0;", '', $_POST['content']);
+    $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:1em;margin-bottom:0;margin-right:0;margin-left:", '', $_POST['content']);
 
     $content = htmlspecialchars($content); 
 
