@@ -23,11 +23,10 @@ if ( isset($_POST['content']) ):
 [caption id="attachment_2066876" align="aligncenter" width="1200"]<img width="1200" data-sizes="auto" data-src="https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=620&#038;crop=0%2C0px%2C100%2C9999px" data-srcset="https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=620&#038;crop=0%2C0px%2C100%2C9999px 620w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=780&#038;crop=0%2C0px%2C100%2C9999px 780w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=810&#038;crop=0%2C0px%2C100%2C9999px 810w,https://i1.wp.com/www.denverpost.com/wp-content/uploads/2025/06/1466615242413.png?w=630&#038;crop=0%2C0px%2C100%2C9999px 630w" class="lazyload size-article_inline"  alt="Mile High Roundup" >[/caption]
 <?php
     // Strip the custom markup on the paragraphs
-    $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:0.5em;margin-bottom:0;margin-right:0;margin-left:0;", '', $_POST['content']);
-    $content = str_replace("font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:1em;margin-bottom:0;margin-right:0;margin-left:0;", '', $content);
+    $content = str_replace(" style=\"font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:1em;margin-bottom:0;margin-right:0;margin-left:0;text-align:left;color:#333333;\" ", '', $_POST['content']);
 
     // Add border-top: 0; to the blockquote style.
-    $content = str_replace("font-family: Georgia, 'Droid Serif', -apple-system-headline, serif;", "font-family: Georgia, 'Droid Serif', -apple-system-headline, serif; border-top: 0;", $content);
+    $content = str_replace("font-family:Georgia, 'Droid Serif', -apple-system-headline, serif;", "font-family: Georgia, 'Source Serif Pro', -apple-system-headline, serif; border-top: 0;", $content);
 
     $content = htmlspecialchars($content); 
 
