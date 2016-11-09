@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Newsletter Signup</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+<script src="mailer.js"></script>
+<link href='style.css' rel='stylesheet' type='text/css'>
+
+<link href='https://fonts.googleapis.com/css?family=Andada|Montserrat:400,700|Open+Sans:400,800,700,400italic' rel='stylesheet' type='text/css'>
+<!--
+<link href='http://extras.denverpost.com/app/mailer-rules/style.css' rel='stylesheet' type='text/css'>
+-->
+<script src="http://extras.denverpost.com/app/mailer-rules/mailer.js"></script>
+	<div id="emailThick">
+		<h2>Get our daily politics newsletter right in your inbox.</h2>
+		<p></p>
+                  <form action="http://www.denverpostplus.com/app/mailer-rules/www/" method="post" name="roundup" id="newsletter" target="_top">
+                    <p id="results"></p>
+                    <input type="hidden" name="keebler" value="goof111" />
+                    <input type="hidden" name="goof111" value="TRUE" />
+                    <input type="hidden" name="redirect" id="inputRedirURL" value="http://extras.denverpost.com/splash/roundupthanks.html" />
+                    <input type="hidden" name="id" value="autoadd" />
+                    <input type="hidden" name="which" value="politics" />
+                    <input type="text" name="name_first" value="Humans: Do Not Use" style="display:none;" />
+                    <input placeholder="Email Address" required type="text" name="email_address" style="font-size:1.2em;" maxlength="50" value="">
+                    <input type="submit" value="SUBSCRIBE" onClick="form_handler.submit('#newsletter-sports');">
+<!--
+                    <p style="text-align:center;padding:0;margin:0;"><input class="button large radius expand" type="submit" value="SUBSCRIBE" onClick="form_handler.submit('#newsletter');"></p>
+-->
+                  </form>
+	</div>
+</body>
+</html>
