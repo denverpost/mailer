@@ -24,6 +24,7 @@ if ( isset($_POST['content']) ):
 <?php
     // Strip the custom markup on the paragraphs
     $content = str_replace(" style=\"font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:1em;margin-bottom:0;margin-right:0;margin-left:0;text-align:left;color:#333333;\" ", '', $_POST['content']);
+    $content = str_replace(" style=\"font-family:-apple-system-headline, 'Roboto', 'Helvetica Neue', sans-serif;font-size:1.4em;line-height:1.5em;margin-top:5%;margin-bottom:5%;margin-right:1%;margin-left:1%;text-align:left;color:#333333\" ", '', $content);
 
     // Add border-top: 0; to the blockquote style.
     $content = str_replace("font-family:Georgia, 'Droid Serif', -apple-system-headline, serif;", "font-family: Georgia, 'Source Serif Pro', -apple-system-headline, serif; border-top: 0;", $content);
