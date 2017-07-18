@@ -89,7 +89,7 @@
 <link rel='stylesheet' id='mason-fonts-css'  href='https://fonts.googleapis.com/css?family=Source+Serif+Pro%3A400%2C400italic%2C600%2C600italic%2C700%2C700italic%7CSource+Sans+Pro%3A400%2C400italic%2C600%2C600italic%2C700%2C400italic&#038;ver=4.7.3' type='text/css' media='all' />
 <script src="http://extras.denverpost.com/app/mailer-rules/mailer.js"></script>
 	<div id="emailThick">
-		<h2>Get our <a id="whichname" href="http://extras.denverpost.com/splash/roundup.html" target="_top">Mile High Roundup</a> right in your inbox daily.</h2>
+		<h2>Get our <a id="whichname" href="http://extras.denverpost.com/splash/roundup.html" target="_top">Mile High Roundup</a> right in your inbox<span id="whichfreq"> daily</span>.</h2>
         <form action="http://www.denverpostplus.com/app/mailer-rules/www/" method="post" name="roundup" id="newsletter" target="_top">
             <p id="results"></p>
             <input type="hidden" name="keebler" value="goof111" />
@@ -121,8 +121,55 @@
           } 
           return query_string;
         }();
-        document.getElementById('which').value = QueryString.which;
-        document.getElementById('whichname').innerHTML = decodeURIComponent(QueryString.name);
+        var mailers = {
+            "news": {
+                "whichname": "Mile High Roundup",
+                "whichfreq": "daily",
+                "whichlink": "http://extras.denverpost.com/splash/roundup.html"
+            },
+            "sports": {
+                "whichname": "Sports newsletter",
+                "whichfreq": "daily",
+                "whichlink": "http://dpo.st/alerts"
+            },
+            "techplus": {
+                "whichname": "Tech newsletter",
+                "whichfreq": "weekly",
+                "whichlink": "http://dpo.st/mailbag"
+            },
+            "theknow": {
+                "whichname": "The Know newsletter",
+                "whichfreq": "weekly",
+                "whichlink": "http://dpo.st/alerts"
+            },
+            "soundoff": {
+                "whichname": "The Sound Off opinion newsletter",
+                "whichfreq": "weekly",
+                "whichlink": "http://dpo.st/alerts"
+            },
+            "politicsrdup": {
+                "whichname": "Colorado politics (and beyond) newsletter",
+                "whichfreq": "weekly",
+                "whichlink": "http://dpo.st/alerts"
+            }
+        };
+        var selected = (typeof QueryString.which != 'undefined' ) ? decodeURIComponent(QueryString.which) : 'news';
+        var nameOverride = (typeof QueryString.name != 'undefined' ) ? decodeURIComponent(QueryString.name) : false;
+        var freqOverride = (typeof QueryString.freq != 'undefined' ) ? decodeURIComponent(QueryString.freq) : false;
+
+        var selectedSet = mailers[selected];
+
+        
+        document.getElementById('which').value = (typeof selected != 'undefined' ) ? selected : document.getElementById('which').value;
+
+        document.getElementById('inputRedirURL').value = (typeof selected != 'undefined' ) ? 'http://extras.denverpost.com/app/mailer-rules/thanks.html?which=' + selected : document.getElementById('inputRedirURL').value;
+
+        document.getElementById('whichname').innerHTML = (typeof selectedSet['whichname'] != 'undefined' ) ? selectedSet['whichname'] : document.getElementById('whichname').innerHTML;
+
+        document.getElementById('whichfreq').innerHTML = (typeof selectedSet['whichfreq'] != 'undefined' ) ? ' ' + selectedSet['whichfreq'] : document.getElementById('whichfreq').innerHTML;
+
+        document.getElementById('whichname').href = (typeof selectedSet['whichlink'] != 'undefined' ) ?  selectedSet['whichlink'] : document.getElementById('whichname').href;
+        
         if (window.innerWidth < 460) {
             document.getElementById('formsubmit').value = 'GO';
         }
