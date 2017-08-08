@@ -172,9 +172,10 @@
 
         document.getElementById('whichname').innerHTML = ( name ) ? name : document.getElementById('whichname').innerHTML;
 
-        var freq = ( freqOverride  ) ? freqOverride : selectedSet['whichfreq'];
+        var freq = ( freqOverride !== false ) ? ' ' + freqOverride : ' ' + selectedSet['whichfreq'];
+        freq = (freqOverride == 'none') ? '' : freq;
 
-        document.getElementById('whichfreq').innerHTML = ( freq ) ? ' ' + freq : document.getElementById('whichfreq').innerHTML;
+        document.getElementById('whichfreq').innerHTML = ( freq !== false) ? freq : document.getElementById('whichfreq').innerHTML;
 
         document.getElementById('whichname').href = (typeof selectedSet['whichlink'] != 'undefined' ) ?  selectedSet['whichlink'] : document.getElementById('whichname').href;
         
