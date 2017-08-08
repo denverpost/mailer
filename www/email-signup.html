@@ -163,15 +163,18 @@
         var freqOverride = (typeof QueryString.freq != 'undefined' ) ? decodeURIComponent(QueryString.freq) : false;
 
         var selectedSet = mailers[selected];
-
         
         document.getElementById('which').value = (typeof selected != 'undefined' ) ? selected : document.getElementById('which').value;
 
         document.getElementById('inputRedirURL').value = (typeof selected != 'undefined' ) ? 'http://extras.denverpost.com/app/mailer-rules/thanks.html?which=' + selected : document.getElementById('inputRedirURL').value;
 
-        document.getElementById('whichname').innerHTML = (typeof selectedSet['whichname'] != 'undefined' ) ? selectedSet['whichname'] : document.getElementById('whichname').innerHTML;
+        var name = ( nameOverride  ) ? nameOverride : selectedSet['whichname'];
 
-        document.getElementById('whichfreq').innerHTML = (typeof selectedSet['whichfreq'] != 'undefined' ) ? ' ' + selectedSet['whichfreq'] : document.getElementById('whichfreq').innerHTML;
+        document.getElementById('whichname').innerHTML = ( name ) ? name : document.getElementById('whichname').innerHTML;
+
+        var freq = ( freqOverride  ) ? freqOverride : selectedSet['whichfreq'];
+
+        document.getElementById('whichfreq').innerHTML = ( freq ) ? freq : document.getElementById('whichfreq').innerHTML;
 
         document.getElementById('whichname').href = (typeof selectedSet['whichlink'] != 'undefined' ) ?  selectedSet['whichlink'] : document.getElementById('whichname').href;
         
