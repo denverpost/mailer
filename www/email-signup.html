@@ -174,7 +174,7 @@
 
         var freq = ( freqOverride  ) ? freqOverride : selectedSet['whichfreq'];
 
-        document.getElementById('whichfreq').innerHTML = ( freq ) ? freq : document.getElementById('whichfreq').innerHTML;
+        document.getElementById('whichfreq').innerHTML = ( freq ) ? ' ' + freq : document.getElementById('whichfreq').innerHTML;
 
         document.getElementById('whichname').href = (typeof selectedSet['whichlink'] != 'undefined' ) ?  selectedSet['whichlink'] : document.getElementById('whichname').href;
         
