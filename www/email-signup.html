@@ -127,7 +127,12 @@
                 "whichfreq": "daily",
                 "whichlink": "http://extras.denverpost.com/splash/roundup.html"
             },
-            "sports": {
+            "bronxinsider": {
+                "whichname": "Broncos Insider",
+                "whichfreq": "weekly",
+                "whichlink": "http://dpo.st/alerts"
+            }
+            "sportsdaily": {
                 "whichname": "Sports newsletter",
                 "whichfreq": "daily",
                 "whichlink": "http://dpo.st/alerts"
@@ -157,7 +162,7 @@
         var nameOverride = (typeof QueryString.name != 'undefined' ) ? decodeURIComponent(QueryString.name) : false;
         var freqOverride = (typeof QueryString.freq != 'undefined' ) ? decodeURIComponent(QueryString.freq) : false;
 
-        var selectedSet = mailers[selected];
+        var selectedSet = mailers.selected;
 
         
         document.getElementById('which').value = (typeof selected != 'undefined' ) ? selected : document.getElementById('which').value;
