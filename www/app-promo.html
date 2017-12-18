@@ -28,7 +28,7 @@
     h2.apphed {
         font-family:'Source Serif Pro', Georgia, Times, 'Times New Roman', serif;
         text-transform: uppercase;
-        font-size: 1.5em;
+        font-size: 1.4em;
         font-weight:700;
         color:#222;
         margin:3px 0 .2em;
@@ -46,6 +46,7 @@
     p.download {
         color: #8e1024;
         text-transform: uppercase;
+        margin-top:.25em;
     }
     a {
         border-bottom: 1px dotted #003459;
@@ -90,10 +91,10 @@
 </head>
 <body>
     <hr />
-    <img src="http://extras.denverpost.com/newsletter/dp-app.png">
-    <h2 class="apphed">The Denver Post App</h2>
-    <p><strong>Stay informed.</strong> Get Colorado breaking news pushed right to your pocket.</p>
-    <p class="download">DOWNLOAD: <a href="http://dpo.st/AndroidApp" title="Download from the Google Play Store">ANDROID</a> | <a href="http://dpo.st/iOSApp" title="Download in iTunes">IOS</a></p>
+    <img id="logoimg" src="http://extras.denverpost.com/newsletter/dp-app.png">
+    <h2 class="apphed" id="apphead">The Denver Post App</h2>
+    <p><strong>Stay informed.</strong> Get Colorado <span id="breaking">breaking</span> news pushed right to your pocket.</p>
+    <p class="download">DOWNLOAD: <a id="android" href="http://dpo.st/AndroidApp" title="Download from the Google Play Store" target="_top">ANDROID</a> | <a id="apple" href="http://dpo.st/iOSApp" title="Download in iTunes" target="_top">IOS</a></p>
     <script>
     var QueryString = function () {
       var query_string = {};
@@ -114,6 +115,13 @@
     }();
     if (QueryString.logo == 'false') {
         document.body.className = 'no-logo';
+    }
+    if (QueryString.sports == 'true') {
+        document.getElementById('logoimg').src = 'http://extras.denverpost.com/newsletter/dp-app-sports.png';
+        document.getElementById('android').href = 'https://play.google.com/store/apps/details?id=com.rumble.denver_post_sports&hl=en';
+        document.getElementById('apple').href = 'https://itunes.apple.com/us/app/denver-post-sports/id390951038?mt=8';
+        document.getElementById('apphead').innerHTML = 'Denver Post Sports App';
+        document.getElementById('breaking').innerHTML = 'sports';
     }
     </script>
 </body>
